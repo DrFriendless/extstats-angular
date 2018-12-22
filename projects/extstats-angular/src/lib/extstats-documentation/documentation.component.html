@@ -1,9 +1,9 @@
-<div [ngbCollapse]="collapsed">
-  <ngb-tabset>
-    <ngb-tab *ngFor="let doc of content$ | async" title="{{doc.title}}">
+<div [collapse]="collapsed">
+  <tabset>
+    <tab *ngFor="let doc of content$ | async" title="{{doc.title}}">
       <ng-template ngbTabContent>
         <p *ngFor="let t of doc.text" [innerHtml]="t"></p>
       </ng-template>
-    </ngb-tab>
-  </ngb-tabset>
+    </tab>
+  </tabset>
 </div>
