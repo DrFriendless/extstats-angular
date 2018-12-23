@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./geek-chips.component.css']
 })
 export class GeekChipsComponent {
+  @Input('editable') editable = true;
   public geeks: string[] = [];
 
   public addGeek(geek: string) {

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, Input } from '@angular/core';
 import {GeekChipsComponent} from '../geek-chips/geek-chips.component';
 
 @Component({
@@ -6,8 +6,14 @@ import {GeekChipsComponent} from '../geek-chips/geek-chips.component';
   templateUrl: './geek-list-editor.component.html',
   styleUrls: ['./geek-list-editor.component.css']
 })
-export class GeekListEditorComponent {
+export class GeekListEditorComponent implements AfterViewInit {
     @ViewChild(GeekChipsComponent) chips;
+    @Input('editable') editable = true;
+    @Input('initial') initial: string = "";
+
+    ngAfterViewInit() {
+      this.chips.geeks = this.initial.split(",").map(s => s.trim());
+    }
 
     public getGeeks(): string[] {
       return this.chips.geeks;

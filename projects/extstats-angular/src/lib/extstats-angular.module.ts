@@ -41,7 +41,11 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
     ButtonGroupButtonDirective,
     GeekChipsComponent,
     GeekComboComponent,
-    GeekListEditorComponent
+    GeekListEditorComponent,
+    MatChipsModule,
+    MatIconModule,
+    MatInputModule,
+    MatFormFieldModule
   ]
 })
 export class ExtstatsAngularModule { }
