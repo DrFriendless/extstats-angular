@@ -18,6 +18,8 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+export { GeekChipsComponent, GeekComboComponent, GeekListEditorComponent };
+export { DocumentationComponent, TableConfigComponent, ButtonGroupComponent, ButtonGroupButtonDirective };
 
 @NgModule({
   imports: [
@@ -41,11 +43,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
     ButtonGroupButtonDirective,
     GeekChipsComponent,
     GeekComboComponent,
-    GeekListEditorComponent,
-    MatChipsModule,
-    MatIconModule,
-    MatInputModule,
-    MatFormFieldModule
+    GeekListEditorComponent
   ]
 })
 export class ExtstatsAngularModule { }
