@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class GeekChipsComponent {
   @Input('editable') editable = true;
-  public geeks: string[] = [];
+  @Input('geeks') geeks: string[] = [];
 
   public addGeek(geek: string) {
     if (this.geeks.indexOf(geek) < 0) this.geeks.push(geek);

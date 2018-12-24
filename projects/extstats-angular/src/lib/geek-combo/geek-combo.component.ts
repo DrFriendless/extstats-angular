@@ -11,6 +11,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 })
 export class GeekComboComponent implements OnInit {
   @Input('editable') editable = true;
+  @Input('placeholder') placeholder = "Geek";
   @Output() geekChosen = new EventEmitter<string>();
   private clears = new Subject<string>();
   control: FormControl = new FormControl();

@@ -1,5 +1,5 @@
 <!-- <mat-form-field class="input-full-width"> -->
-  <input matInput type="text" placeholder="Geek" aria-label="Number" [formControl]="control" [matAutocomplete]="auto">
+  <input matInput type="text" placeholder="{{placeholder}}" [formControl]="control" [matAutocomplete]="auto">
 <!-- </mat-form-field> -->
 
   <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="emit($event)">
