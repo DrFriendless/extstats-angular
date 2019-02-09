@@ -30,7 +30,7 @@ export class GeekComboComponent implements OnInit {
   private filter(val: string): Observable<string[]> {
     if (val === '') return of([]);
     return this.http
-      .get('http://eb.drfriendless.com/findgeeks/' + val) as Observable<string[]>;
+      .get('https://api.drfriendless.com/v1/findgeeks/' + val) as Observable<string[]>;
   }
 
   public emit(event) {
