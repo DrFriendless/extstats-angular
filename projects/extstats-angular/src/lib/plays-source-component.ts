@@ -1,23 +1,19 @@
 import { PlaysQuery } from "extstats-core";
-import {AfterViewInit, OnInit} from '@angular/core';
-import {Observable} from "rxjs/internal/Observable";
-import {Subject} from "rxjs/internal/Subject";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {flatMap, tap, map, share} from "rxjs/internal/operators";
-import {UserDataService} from "./user-data.service";
+import  {AfterViewInit, OnInit} from '@angular/core';
+import { Observable} from "rxjs/internal/Observable";
+import { Subject} from "rxjs/internal/Subject";
+import { HttpClient, HttpHeaders} from "@angular/common/http";
+import { flatMap, tap, share } from "rxjs/internal/operators";
+import { EMPTY } from "rxjs";
+import { UserDataService} from "./user-data.service";
 
 export abstract class PlaysSourceComponent<T> implements AfterViewInit, OnInit {
   protected geek: string;
-  private selectors = new Subject<any>();
+  private queries = new Subject<any>();
   public data$: Observable<T>;
 
   protected constructor(private http: HttpClient, private userDataService: UserDataService) {
-  }
-
-  public ngOnInit(): void {
-    this.userDataService.init();
-    this.geek = this.userDataService.getAGeek();
-    this.data$ = this.selectors.asObservable()
+    this.data$ = this.queries.asObservable()
       .pipe(
         flatMap(junk => this.doQuery()),
         tap(data => console.log(data)),
@@ -25,8 +21,13 @@ export abstract class PlaysSourceComponent<T> implements AfterViewInit, OnInit {
       );
   }
 
+  public ngOnInit(): void {
+    this.userDataService.init();
+    this.geek = this.userDataService.getAGeek();
+  }
+
   public ngAfterViewInit() {
-    this.selectors.next(null);
+    this.refresh();
   }
 
 // export interface PlaysQuery {
@@ -42,18 +43,16 @@ export abstract class PlaysSourceComponent<T> implements AfterViewInit, OnInit {
       headers: new HttpHeaders().set("x-api-key", this.getApiKey())
     };
     const body = this.buildQuery(this.geek);
-    return this.http.post("https://api.drfriendless.com/v1/plays", body, options) as Observable<T>;
+    if (body) return this.http.post("https://api.drfriendless.com/v1/plays", body, options) as Observable<T>;
+    return EMPTY;
   }
 
   protected buildQuery(geek: string): PlaysQuery {
-    const body: PlaysQuery = {
-      geek: this.geek,
-    };
-    return body;
+    return { geek };
   }
 
   public refresh() {
-    this.selectors.next(null);
+    this.queries.next(null);
   }
 
   public abstract getId(): string;

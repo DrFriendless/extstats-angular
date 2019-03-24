@@ -11,7 +11,9 @@ export abstract class PlaysViewComponent<D> implements OnDestroy, AfterViewInit 
   }
 
   public ngAfterViewInit() {
-    this.dataSubscription = this.data$.subscribe(collection => this.processData(collection));
+    if (this.data$) {
+      this.dataSubscription = this.data$.subscribe(collection => this.processData(collection));
+    }
   }
 
   protected abstract processData(data: D);
