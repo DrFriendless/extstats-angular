@@ -1,31 +1,34 @@
-import { fromExtStatsStorage, GeekGameQuery } from "extstats-core";
-import { AfterViewInit } from '@angular/core';
+import { GeekGameQuery } from "extstats-core";
+import {AfterViewInit, OnInit} from '@angular/core';
 import {Observable} from "rxjs/internal/Observable";
-import {Subscription} from "rxjs/internal/Subscription";
 import {Subject} from "rxjs/internal/Subject";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {flatMap, tap, map, share} from "rxjs/internal/operators";
+import {flatMap, tap, share} from "rxjs/internal/operators";
 import {ExtstatsTable} from "./table-config/extstats-table";
+import {UserDataService} from "./user-data.service";
 
-export abstract class DataSourceComponent<T> implements ExtstatsTable, AfterViewInit {
+export abstract class DataSourceComponent<T> implements ExtstatsTable, AfterViewInit, OnInit {
   protected geek: string;
   private selectors = new Subject<string>();
   public data$: Observable<T>;
   protected selector: string;
 
-  protected constructor(private http: HttpClient, defaultSelector: string) {
+  protected constructor(private http: HttpClient, private userDataService: UserDataService, defaultSelector: string) {
     this.selector = defaultSelector;
-    this.geek = fromExtStatsStorage(storage => storage.geek);
+  }
+
+  public ngAfterViewInit() {
+    this.selectors.next(this.selector);
+  }
+
+  public ngOnInit(): void {
+    this.geek = this.userDataService.getAGeek();
     this.data$ = this.selectors.asObservable()
       .pipe(
         flatMap(s => this.doQuery(s)),
         tap(data => console.log(data)),
         share()
       );
-  }
-
-  public ngAfterViewInit() {
-    this.selectors.next(this.selector);
   }
 
   private doQuery(selector: string): Observable<T> {

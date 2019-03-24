@@ -10,3 +10,4 @@ export * from './lib/data-source-component';
 export * from './lib/data-view-component';
 export * from './lib/plays-source-component';
 export * from './lib/plays-view-component';
+export * from './lib/user-data.service';
