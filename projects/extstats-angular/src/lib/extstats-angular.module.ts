@@ -18,6 +18,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { LoaderComponent } from './loader/loader.component';
 export { GeekChipsComponent, GeekComboComponent, GeekListEditorComponent };
 export { DocumentationComponent, TableConfigComponent, ButtonGroupComponent, ButtonGroupButtonDirective };
 
@@ -34,7 +35,8 @@ export { DocumentationComponent, TableConfigComponent, ButtonGroupComponent, But
     ButtonGroupButtonDirective,
     GeekChipsComponent,
     GeekComboComponent,
-    GeekListEditorComponent
+    GeekListEditorComponent,
+    LoaderComponent
   ],
   exports: [
     DocumentationComponent,
@@ -43,7 +45,8 @@ export { DocumentationComponent, TableConfigComponent, ButtonGroupComponent, But
     ButtonGroupButtonDirective,
     GeekChipsComponent,
     GeekComboComponent,
-    GeekListEditorComponent
+    GeekListEditorComponent,
+    LoaderComponent
   ]
 })
 export class ExtstatsAngularModule { }

@@ -11,12 +11,15 @@ export abstract class PlaysSourceComponent<T> implements AfterViewInit, OnInit {
   protected geek: string;
   private queries = new Subject<any>();
   public data$: Observable<T>;
+  public loading = false;
 
   protected constructor(private http: HttpClient, private userDataService: UserDataService) {
     this.data$ = this.queries.asObservable()
       .pipe(
+        tap(junk => this.loading = true),
         flatMap(junk => this.doQuery()),
         tap(data => console.log(data)),
+        tap(junk => this.loading = false),
         share()
       );
   }
@@ -30,14 +33,6 @@ export abstract class PlaysSourceComponent<T> implements AfterViewInit, OnInit {
     this.refresh();
   }
 
-// export interface PlaysQuery {
-//   geek: string;
-//   geeks?: string[];
-//   year?: number;
-//   month?: number;
-//   date?: number;
-//   filter?: string;
-// }
   private doQuery(): Observable<T> {
     const options = {
       headers: new HttpHeaders().set("x-api-key", this.getApiKey())

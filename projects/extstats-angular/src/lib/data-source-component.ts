@@ -12,6 +12,7 @@ export abstract class DataSourceComponent<T> implements ExtstatsTable, AfterView
   private selectors = new Subject<string>();
   public data$: Observable<T>;
   protected selector: string;
+  public loading = false;
 
   protected constructor(private http: HttpClient, private userDataService: UserDataService, defaultSelector: string) {
     this.selector = defaultSelector;
@@ -25,8 +26,10 @@ export abstract class DataSourceComponent<T> implements ExtstatsTable, AfterView
     this.geek = this.userDataService.getAGeek();
     this.data$ = this.selectors.asObservable()
       .pipe(
+        tap(junk => this.loading = true),
         flatMap(s => this.doQuery(s)),
         tap(data => console.log(data)),
+        tap(junk => this.loading = false),
         share()
       );
   }

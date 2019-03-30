@@ -45,9 +45,10 @@ import {
   MatTreeModule,
   MatFormFieldModule
 } from '@angular/material';
+import {LoaderComponent} from "../../projects/extstats-angular/src/lib/loader/loader.component";
 @NgModule({
   declarations: [
-    AppComponent, GeekListEditorComponent, GeekChipsComponent, GeekComboComponent
+    AppComponent, GeekListEditorComponent, GeekChipsComponent, GeekComboComponent, LoaderComponent
   ],
   imports: [
     BrowserModule, MatChipsModule, MatFormFieldModule, MatIconModule, ReactiveFormsModule, FormsModule, MatAutocompleteModule,

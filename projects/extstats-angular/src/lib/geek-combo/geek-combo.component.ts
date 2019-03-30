@@ -2,7 +2,7 @@ import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable, of, Subject } from 'rxjs';
 import { startWith, flatMap, merge } from 'rxjs/operators';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'geek-combo',
