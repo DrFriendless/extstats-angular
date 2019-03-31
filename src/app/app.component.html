@@ -2,6 +2,16 @@
 
 <geek-list-editor [editable]="false" [initial]="'ferrao, Simonocles, Pierre le Bear'"></geek-list-editor>
 
-<geek-combo [editable]="true" [placeholder]="'Your name here'"></geek-combo>
+<div>
+  <p>
+    If you're not sure about the user name, check with this handy finder:
+  </p>
+  <geek-combo (geekChosen)="choose($event)" [placeholder]="'BGG user name'"></geek-combo>
+  <p *ngIf="!!foundGeek">
+    The correct page is <a href="/geek.html?geek={{foundGeek}}">https://extstats.drfriendless.com/geek.html?geek={{foundGeek}}</a>
+  </p>
+</div>
+
+<p>This is a loader:</p>
 
 <extstats-loader></extstats-loader>

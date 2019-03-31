@@ -5,5 +5,9 @@ import { Component } from '@angular/core';
   templateUrl: './app.component.html'
 })
 export class AppComponent {
-  title = 'extstats-angular-app';
+  public foundGeek: string;
+
+  public choose(geek: string) {
+    this.foundGeek = geek;
+  }
 }
