@@ -5,8 +5,10 @@ import { HttpClientModule } from "@angular/common/http";
 import { GeekListEditorComponent } from 'projects/extstats-angular/src/lib/geek-list-editor/geek-list-editor.component';
 import { GeekChipsComponent } from 'projects/extstats-angular/src/lib/geek-chips/geek-chips.component';
 import { GeekComboComponent } from 'projects/extstats-angular/src/lib/geek-combo/geek-combo.component';
+import { ConfigComponent } from 'projects/extstats-angular/src/lib/config/config.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { NguiAutoCompleteModule } from '@ngui/auto-complete';
 import {
   MatAutocompleteModule,
   MatBadgeModule,
@@ -48,11 +50,11 @@ import {
 import {LoaderComponent} from "../../projects/extstats-angular/src/lib/loader/loader.component";
 @NgModule({
   declarations: [
-    AppComponent, GeekListEditorComponent, GeekChipsComponent, GeekComboComponent, LoaderComponent
+    AppComponent, GeekListEditorComponent, GeekChipsComponent, GeekComboComponent, LoaderComponent, ConfigComponent
   ],
   imports: [
     BrowserModule, MatChipsModule, MatFormFieldModule, MatIconModule, ReactiveFormsModule, FormsModule, MatAutocompleteModule,
-    MatSelectModule, HttpClientModule, BrowserAnimationsModule
+    MatSelectModule, HttpClientModule, BrowserAnimationsModule, NguiAutoCompleteModule
   ],
   providers: [],
   bootstrap: [AppComponent]

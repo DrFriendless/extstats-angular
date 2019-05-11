@@ -10,4 +10,9 @@ export class AppComponent {
   public choose(geek: string) {
     this.foundGeek = geek;
   }
+
+  public configChanged(event) {
+    console.log("configChanged");
+    console.log(event);
+  }
 }

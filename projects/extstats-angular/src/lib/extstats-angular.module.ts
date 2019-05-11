@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { DocumentationComponent } from "./extstats-documentation/documentation.component";
-import { TableConfigComponent } from "./table-config/table-config.component";
 import { ButtonGroupComponent } from "./button-group/button-group.component";
 import { ButtonGroupButtonDirective } from "./button-group-button.directive";
 import { NguiAutoCompleteModule } from '@ngui/auto-complete';
@@ -19,8 +18,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { LoaderComponent } from './loader/loader.component';
+import { ConfigComponent } from "./config/config.component";
 export { GeekChipsComponent, GeekComboComponent, GeekListEditorComponent };
-export { DocumentationComponent, TableConfigComponent, ButtonGroupComponent, ButtonGroupButtonDirective };
+export { DocumentationComponent, ConfigComponent, ButtonGroupComponent, ButtonGroupButtonDirective };
 
 @NgModule({
   imports: [
@@ -30,7 +30,7 @@ export { DocumentationComponent, TableConfigComponent, ButtonGroupComponent, But
   ],
   declarations: [
     DocumentationComponent,
-    TableConfigComponent,
+    ConfigComponent,
     ButtonGroupComponent,
     ButtonGroupButtonDirective,
     GeekChipsComponent,
@@ -40,7 +40,7 @@ export { DocumentationComponent, TableConfigComponent, ButtonGroupComponent, But
   ],
   exports: [
     DocumentationComponent,
-    TableConfigComponent,
+    ConfigComponent,
     ButtonGroupComponent,
     ButtonGroupButtonDirective,
     GeekChipsComponent,

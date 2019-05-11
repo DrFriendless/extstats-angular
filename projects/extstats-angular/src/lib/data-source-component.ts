@@ -4,10 +4,9 @@ import {Observable} from "rxjs/internal/Observable";
 import {Subject} from "rxjs/internal/Subject";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {flatMap, tap, share} from "rxjs/internal/operators";
-import {ExtstatsTable} from "./table-config/extstats-table";
 import {UserDataService} from "./user-data.service";
 
-export abstract class DataSourceComponent<T> implements ExtstatsTable, AfterViewInit, OnInit {
+export abstract class DataSourceComponent<T> implements AfterViewInit, OnInit {
   protected geek: string;
   private selectors = new Subject<string>();
   public data$: Observable<T>;
@@ -47,17 +46,6 @@ export abstract class DataSourceComponent<T> implements ExtstatsTable, AfterView
     Object.assign(body, this.getExtra());
     return this.http.post("https://api.drfriendless.com/v1/query", body, options) as Observable<T>;
   }
-
-  public getSelector(): string {
-    return this.selector;
-  }
-
-  public setSelector(s: string) {
-    this.selector = s;
-    this.selectors.next(s);
-  }
-
-  public abstract getId(): string;
 
   protected abstract getQueryResultFormat(): string;
 
