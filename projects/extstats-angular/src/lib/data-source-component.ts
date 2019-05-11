@@ -17,8 +17,12 @@ export abstract class DataSourceComponent<T> implements AfterViewInit, OnInit {
     this.selector = defaultSelector;
   }
 
+  protected next(selector: string) {
+    this.selectors.next(selector);
+  }
+
   public ngAfterViewInit() {
-    this.selectors.next(this.selector);
+    this.next(this.selector);
   }
 
   public ngOnInit(): void {
