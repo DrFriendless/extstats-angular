@@ -6,8 +6,7 @@ import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'geek-combo',
-  templateUrl: './geek-combo.component.html',
-  styleUrls: ['./geek-combo.component.css']
+  templateUrl: './geek-combo.component.html'
 })
 export class GeekComboComponent implements OnInit {
   @Input('editable') editable = true;

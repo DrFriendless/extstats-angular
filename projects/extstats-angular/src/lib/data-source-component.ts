@@ -7,7 +7,7 @@ import {flatMap, tap, share} from "rxjs/internal/operators";
 import {UserDataService} from "./user-data.service";
 
 export abstract class DataSourceComponent<T> implements AfterViewInit, OnInit {
-  protected geek: string;
+  public geek: string;
   private selectors = new Subject<string>();
   public data$: Observable<T>;
   protected selector: string;

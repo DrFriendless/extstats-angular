@@ -1,4 +1,5 @@
 import {Component, AfterViewInit, Input, Output, EventEmitter} from '@angular/core';
+import {FormControl} from "@angular/forms";
 
 @Component({
   selector: 'extstats-config',
@@ -9,6 +10,7 @@ export class ConfigComponent implements AfterViewInit {
   @Input() alternatives: string[];
   @Output() select = new EventEmitter<string>();
 
+  public control = new FormControl();
   public selectors: string[] = [];
   public selector: string;
 

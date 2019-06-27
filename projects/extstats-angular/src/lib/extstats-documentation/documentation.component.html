@@ -1,9 +1,5 @@
-<div [collapse]="collapsed">
-  <tabset>
-    <tab *ngFor="let doc of content$ | async" title="{{doc.title}}">
-      <ng-template ngbTabContent>
-        <p *ngFor="let t of doc.text" [innerHtml]="t"></p>
-      </ng-template>
-    </tab>
-  </tabset>
-</div>
+<mat-tab-group [style.display]="collapsed ? 'none' : 'block'">
+  <mat-tab *ngFor="let doc of content$ | async" label="{{doc.title}}">
+    <p *ngFor="let para of doc.text" [innerHTML]="para"></p>
+  </mat-tab>
+</mat-tab-group>

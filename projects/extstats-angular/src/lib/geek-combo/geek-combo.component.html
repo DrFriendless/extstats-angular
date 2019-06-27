@@ -1,9 +1,10 @@
-<!-- <mat-form-field class="input-full-width"> -->
+<mat-form-field appearance="standard">
+  <mat-label>BGG User Name</mat-label>
   <input matInput type="text" placeholder="{{placeholder}}" [formControl]="control" [matAutocomplete]="auto">
-<!-- </mat-form-field> -->
 
   <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" (optionSelected)="emit($event)">
     <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
       {{ option }}
     </mat-option>
   </mat-autocomplete>
+</mat-form-field>

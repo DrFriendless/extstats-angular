@@ -3,8 +3,7 @@ import {GeekChipsComponent} from '../geek-chips/geek-chips.component';
 
 @Component({
   selector: 'geek-list-editor',
-  templateUrl: './geek-list-editor.component.html',
-  styleUrls: ['./geek-list-editor.component.css']
+  templateUrl: './geek-list-editor.component.html'
 })
 export class GeekListEditorComponent implements AfterViewInit {
     @ViewChild(GeekChipsComponent) chips;

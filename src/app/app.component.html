@@ -2,6 +2,7 @@
 <extstats-config [initial]="'Initial'" [alternatives]="['alternative 1', 'alternative 2']" (select)="configChanged($event)"></extstats-config>
 
 <hr>
+
 <geek-list-editor [editable]="true" [initial]="'Friendless, OzGamer, Ozvortex'"></geek-list-editor>
 
 <geek-list-editor [editable]="false" [initial]="'ferrao, Simonocles, Pierre le Bear'"></geek-list-editor>
@@ -17,6 +18,10 @@
 </div>
 <hr>
 
-<p>This is a loader:</p>
+<h4>Here is some documentation</h4>
+
+<extstats-documentation [src]="'http://test.drfriendless.com/test.json'" [collapsed]="false"></extstats-documentation>
+
+<h4>This is a loader</h4>
 
 <extstats-loader></extstats-loader>

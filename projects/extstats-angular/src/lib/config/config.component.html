@@ -1,6 +1,14 @@
 <div class="extstats-config">
-  <input auto-complete [(ngModel)]="selector" [source]="selectors"/>
-  <button (click)="submit()">Apply</button>
+  <mat-form-field>
+    <input type="text" matInput [(ngModel)]="selector" [formControl]="control" [matAutocomplete]="auto">
+  </mat-form-field>
+  <mat-autocomplete #auto="matAutocomplete">
+    <mat-option *ngFor="let option of selectors" [value]="option">
+      {{ option }}
+    </mat-option>
+  </mat-autocomplete>
+
+  <button mat-raised-button color="primary" type="button" (click)="submit()">Apply</button>
 </div>
 <style>
   .extstats-config {
@@ -12,5 +20,6 @@
   }
   .extstats-config button {
     margin-top: 10px;
+    margin-left: 10px;
   }
 </style>

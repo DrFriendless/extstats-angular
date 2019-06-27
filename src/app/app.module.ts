@@ -8,7 +8,6 @@ import { GeekComboComponent } from 'projects/extstats-angular/src/lib/geek-combo
 import { ConfigComponent } from 'projects/extstats-angular/src/lib/config/config.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { NguiAutoCompleteModule } from '@ngui/auto-complete';
 import {
   MatAutocompleteModule,
   MatBadgeModule,
@@ -48,13 +47,20 @@ import {
   MatFormFieldModule
 } from '@angular/material';
 import {LoaderComponent} from "../../projects/extstats-angular/src/lib/loader/loader.component";
+import {DocumentationComponent} from "../../projects/extstats-angular/src/lib/extstats-documentation/documentation.component";
 @NgModule({
   declarations: [
-    AppComponent, GeekListEditorComponent, GeekChipsComponent, GeekComboComponent, LoaderComponent, ConfigComponent
+    AppComponent, GeekListEditorComponent, GeekChipsComponent, GeekComboComponent, LoaderComponent, ConfigComponent,
+    DocumentationComponent
   ],
   imports: [
     BrowserModule, MatChipsModule, MatFormFieldModule, MatIconModule, ReactiveFormsModule, FormsModule, MatAutocompleteModule,
-    MatSelectModule, HttpClientModule, BrowserAnimationsModule, NguiAutoCompleteModule
+    MatSelectModule, HttpClientModule, BrowserAnimationsModule, MatInputModule, MatButtonModule, MatBadgeModule, MatBottomSheetModule,
+    MatButtonToggleModule, MatCardModule, MatCheckboxModule, MatDatepickerModule, MatDialogModule, MatDividerModule,
+    MatExpansionModule, MatGridListModule, MatListModule, MatMenuModule, MatNativeDateModule, MatPaginatorModule,
+    MatProgressBarModule, MatProgressSpinnerModule, MatRadioModule, MatRippleModule, MatSidenavModule, MatSliderModule,
+    MatSnackBarModule, MatSortModule, MatSlideToggleModule, MatStepperModule, MatTableModule, MatTabsModule, MatToolbarModule,
+    MatTooltipModule, MatTreeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
