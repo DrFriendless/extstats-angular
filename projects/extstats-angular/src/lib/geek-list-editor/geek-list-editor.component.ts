@@ -6,9 +6,9 @@ import {GeekChipsComponent} from '../geek-chips/geek-chips.component';
   templateUrl: './geek-list-editor.component.html'
 })
 export class GeekListEditorComponent implements AfterViewInit {
-    @ViewChild(GeekChipsComponent) chips;
+    @ViewChild(GeekChipsComponent, {static: true}) chips;
     @Input('editable') editable = true;
-    @Input('initial') initial: string = "";
+    @Input('initial') initial = "";
 
     ngAfterViewInit() {
       this.chips.geeks = this.initial.split(",").map(s => s.trim());
