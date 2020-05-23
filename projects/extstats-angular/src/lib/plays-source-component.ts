@@ -1,9 +1,8 @@
 import { PlaysQuery } from "extstats-core";
 import  {AfterViewInit, OnInit} from '@angular/core';
-import { Observable} from "rxjs/internal/Observable";
-import { Subject} from "rxjs/internal/Subject";
+import { Observable, Subject} from "rxjs";
 import { HttpClient, HttpHeaders} from "@angular/common/http";
-import { flatMap, tap, share } from "rxjs/internal/operators";
+import { flatMap, tap, share } from "rxjs/operators";
 import { EMPTY } from "rxjs";
 import { UserDataService} from "./user-data.service";
 

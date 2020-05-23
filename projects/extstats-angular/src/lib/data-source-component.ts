@@ -1,9 +1,8 @@
 import { GeekGameQuery } from "extstats-core";
 import {AfterViewInit, OnInit} from '@angular/core';
-import {Observable} from "rxjs/internal/Observable";
-import {Subject} from "rxjs/internal/Subject";
+import {Subject, Observable} from "rxjs";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {flatMap, tap, share} from "rxjs/internal/operators";
+import {flatMap, tap, share} from "rxjs/operators";
 import {UserDataService} from "./user-data.service";
 
 export abstract class DataSourceComponent<T> implements AfterViewInit, OnInit {

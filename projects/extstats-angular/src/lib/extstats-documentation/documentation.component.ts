@@ -1,6 +1,6 @@
 import { Component, AfterViewInit, Input } from '@angular/core';
 import {DocumentationContent} from "./documentation";
-import {Observable} from "rxjs/internal/Observable";
+import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 
 @Component({

@@ -10,12 +10,13 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatAutocompleteModule } from "@angular/material/autocomplete";
-import {MatInputModule, MatTabsModule} from "@angular/material";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { LoaderComponent } from './loader/loader.component';
 import { ConfigComponent } from "./config/config.component";
+import {MatInputModule} from '@angular/material/input';
+import {MatTabsModule} from '@angular/material/tabs';
 export { GeekChipsComponent, GeekComboComponent, GeekListEditorComponent };
 export { DocumentationComponent, ConfigComponent, ButtonGroupComponent, ButtonGroupButtonDirective };
 

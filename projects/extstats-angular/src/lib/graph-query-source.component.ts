@@ -1,6 +1,6 @@
 import { AfterViewInit, Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { flatMap, tap, share, map } from 'rxjs/internal/operators';
+import { flatMap, tap, share, map } from 'rxjs/operators';
 import { Observable, Subject } from 'rxjs';
 import {UserDataService} from './user-data.service';
 
