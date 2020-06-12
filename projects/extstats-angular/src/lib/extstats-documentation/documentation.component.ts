@@ -11,11 +11,11 @@ import {HttpClient} from "@angular/common/http";
 export class DocumentationComponent implements AfterViewInit {
   @Input() collapsed: boolean;
   @Input() src: string;
-  public content$: Observable<DocumentationContent>;
+  content$: Observable<DocumentationContent>;
 
-  public constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-  public ngAfterViewInit() {
+  ngAfterViewInit() {
     this.content$ = this.http.get(this.src) as Observable<DocumentationContent>;
   }
 }

@@ -15,8 +15,8 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { LoaderComponent } from './loader/loader.component';
 import { ConfigComponent } from "./config/config.component";
-import {MatInputModule} from '@angular/material/input';
-import {MatTabsModule} from '@angular/material/tabs';
+import { MatInputModule } from '@angular/material/input';
+import { MatTabsModule } from '@angular/material/tabs';
 export { GeekChipsComponent, GeekComboComponent, GeekListEditorComponent };
 export { DocumentationComponent, ConfigComponent, ButtonGroupComponent, ButtonGroupButtonDirective };
 

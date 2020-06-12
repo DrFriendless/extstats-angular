@@ -1,4 +1,4 @@
-<mat-tab-group [style.display]="collapsed ? 'none' : 'block'">
+<mat-tab-group [style.display]="collapsed ? 'none' : 'block'"  [@.disabled]="true">
   <mat-tab *ngFor="let doc of content$ | async" label="{{doc.title}}">
     <p *ngFor="let para of doc.text" [innerHTML]="para"></p>
   </mat-tab>
