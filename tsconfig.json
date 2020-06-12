@@ -25,5 +25,8 @@
         "dist/extstats-angular/*"
       ]
     }
-  }
+  },
+  "exclude": [
+    "src/environments/*.ts"
+  ]
 }
