@@ -1,4 +1,4 @@
 export interface ButtonGroupButton {
   getSelector(): string;
-  deselected();
+  deselected(): void;
 }

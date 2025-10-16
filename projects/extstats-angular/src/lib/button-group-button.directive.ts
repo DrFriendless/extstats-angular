@@ -6,8 +6,8 @@ import {ButtonGroupButton} from "./button-group/button-group-interfaces";
   selector: '[extstatsButtonGroup]'
 })
 export class ButtonGroupButtonDirective implements AfterViewInit, ButtonGroupButton {
-  @Input('extstatsButtonGroup') group: ButtonGroupComponent;
-  @Input('selector') selector: string;
+  @Input('extstatsButtonGroup') group!: ButtonGroupComponent;
+  @Input('selector') selector!: string;
   private button: HTMLElement;
 
   constructor(private el: ElementRef) {

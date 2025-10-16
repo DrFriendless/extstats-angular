@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {UserData, BuddySet, UserConfig, fromExtStatsStorage} from 'extstats-core';
+import {UserData, BuddySet, UserConfig} from 'extstats-core';
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import { tap, map } from "rxjs/operators";
 
@@ -19,13 +19,15 @@ export class UserDataService {
       const options = {
         headers: new HttpHeaders().set("Authorization", "Bearer " + jwt)
       };
-      this.http.get("https://api.drfriendless.com/v1/authenticate", options).pipe(
+      this.http.get<UserData>("https://api.drfriendless.com/v1/authenticate", options).pipe(
         tap(obj => console.log(obj)),
         map((userData: UserData) => userData.config),
-        tap((config: UserConfig) => {
+        tap((config: UserConfig | undefined) => {
           console.log(config);
-          this.userNames = config.usernames;
-          this.buddyLists = config.buddies;
+          if (config) {
+            this.userNames = config.usernames;
+            this.buddyLists = config.buddies;
+          }
         })
       );
     }
@@ -41,9 +43,10 @@ export class UserDataService {
     return paramValue;
   }
 
-  public getAGeek(): string {
+  public getAGeek(): string | undefined {
     let geek = this.getParamValueQueryString("geek");
-    if (!geek) fromExtStatsStorage(storage => storage.geek);
+    // if (!geek) fromExtStatsStorage(storage => storage.geek);
+    if (geek === null) geek = undefined;
     return geek;
   }
 

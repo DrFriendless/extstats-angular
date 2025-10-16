@@ -1,13 +1,14 @@
 import { PlaysQuery } from "extstats-core";
-import  {AfterViewInit, OnInit} from '@angular/core';
-import { Observable, Subject} from "rxjs";
+import {AfterViewInit, Injectable, OnInit} from '@angular/core';
+import {Observable, Subject, throwError} from "rxjs";
 import { HttpClient, HttpHeaders} from "@angular/common/http";
 import { flatMap, tap, share } from "rxjs/operators";
 import { EMPTY } from "rxjs";
 import { UserDataService} from "./user-data.service";
 
+@Injectable()
 export abstract class PlaysSourceComponent<T> implements AfterViewInit, OnInit {
-  protected geek: string;
+  protected geek: string | undefined;
   private queries = new Subject<any>();
   public data$: Observable<T>;
   public loading = false;
@@ -33,12 +34,13 @@ export abstract class PlaysSourceComponent<T> implements AfterViewInit, OnInit {
   }
 
   private doQuery(): Observable<T> {
+    if (!this.geek) return throwError(() => new Error('no geek'));
     const options = {
       headers: new HttpHeaders().set("x-api-key", this.getApiKey())
     };
     const body = this.buildQuery(this.geek);
     if (body) return this.http.post("https://api.drfriendless.com/v1/plays", body, options) as Observable<T>;
-    return EMPTY;
+    return throwError(() => new Error('no body in response'));
   }
 
   protected buildQuery(geek: string): PlaysQuery {

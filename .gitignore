@@ -4,6 +4,7 @@
 /dist
 /tmp
 /out-tsc
+extstats-angular-*.tgz
 
 # dependencies
 /node_modules

@@ -1,14 +1,15 @@
 import { GeekGameQuery } from "extstats-core";
-import {AfterViewInit, OnInit} from '@angular/core';
-import {Subject, Observable} from "rxjs";
+import {AfterViewInit, Injectable, OnInit} from '@angular/core';
+import {Subject, Observable, throwError} from "rxjs";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {flatMap, tap, share} from "rxjs/operators";
+import {tap, share, mergeMap} from "rxjs/operators";
 import {UserDataService} from "./user-data.service";
 
+@Injectable()
 export abstract class DataSourceComponent<T> implements AfterViewInit, OnInit {
-  public geek: string;
+  public geek: string | undefined;
   private selectors = new Subject<string>();
-  public data$: Observable<T>;
+  public data$: Observable<T> | undefined;
   protected selector: string;
   public loading = false;
 
@@ -29,7 +30,7 @@ export abstract class DataSourceComponent<T> implements AfterViewInit, OnInit {
     this.data$ = this.selectors.asObservable()
       .pipe(
         tap(junk => this.loading = true),
-        flatMap(s => this.doQuery(s)),
+        mergeMap(s => this.doQuery(s)),
         tap(data => console.log(data)),
         tap(junk => this.loading = false),
         share()
@@ -37,6 +38,7 @@ export abstract class DataSourceComponent<T> implements AfterViewInit, OnInit {
   }
 
   private doQuery(selector: string): Observable<T> {
+    if (!this.geek) return throwError(() => new Error('no geek'));
     const options = {
       headers: new HttpHeaders().set("x-api-key", this.getApiKey())
     };

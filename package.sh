@@ -1,3 +1,9 @@
 #!/usr/bin/env bash
 
-npm run build --prod extstats-angular && cd dist/extstats-angular && npm pack
+rm extstats-angular-*.tgz
+npm run build --production
+cd dist/extstats-angular
+npm pack
+cp extstats-angular-*.tgz ../..
+cd ../..
+cp extstats-angular-*.tgz ../repo

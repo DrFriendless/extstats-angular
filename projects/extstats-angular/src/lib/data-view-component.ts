@@ -1,9 +1,10 @@
 import {Observable, Subscription} from "rxjs";
-import { Input, OnDestroy, AfterViewInit } from '@angular/core';
+import {Input, OnDestroy, AfterViewInit, Injectable} from '@angular/core';
 
+@Injectable()
 export abstract class DataViewComponent<D> implements OnDestroy, AfterViewInit {
-  @Input('data') data$: Observable<D>;
-  private dataSubscription: Subscription;
+  @Input('data') data$!: Observable<D>;
+  private dataSubscription: Subscription | undefined;
 
   public ngOnDestroy() {
     if (this.dataSubscription) this.dataSubscription.unsubscribe();
@@ -13,5 +14,5 @@ export abstract class DataViewComponent<D> implements OnDestroy, AfterViewInit {
     this.dataSubscription = this.data$.subscribe(collection => this.processData(collection));
   }
 
-  protected abstract processData(data: D);
+  protected abstract processData(data: D): void;
 }
