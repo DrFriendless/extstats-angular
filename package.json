@@ -1,6 +1,5 @@
 {
   "name": "extstats-angular",
-  "version": "7.0.0",
   "description": "Component library for Extended Stats clients in Angular",
   "license": "ISC",
   "scripts": {
@@ -17,7 +16,8 @@
     "@angular/platform-browser": "~20.3.4",
     "@angular/platform-browser-dynamic": "~20.3.4",
     "extstats-core": "../repo/extstats-core-1.13.0.tgz",
-    "lodash-es": "^4.17.21"
+    "lodash-es": "^4.17.21",
+    "zone.js": "~0.15.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^20.3.5",

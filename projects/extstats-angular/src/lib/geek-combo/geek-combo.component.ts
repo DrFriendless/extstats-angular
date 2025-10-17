@@ -1,40 +1,130 @@
-import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { Observable, of, Subject } from 'rxjs';
-import { startWith, flatMap, merge } from 'rxjs/operators';
-import { HttpClient } from '@angular/common/http';
+// stolen from Joel Balmer https://medium.com/@joel.balmer/creating-a-combobox-component-in-angular-4ea8dfcf5112
+// and then massacred.
+
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {Observable, of, Subject, switchMap} from "rxjs";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'geek-combo',
-  templateUrl: './geek-combo.component.html'
+  templateUrl: './geek-combo.component.html',
+  styleUrls: ['./geek-combo.component.scss'],
+  standalone: true
 })
-export class GeekComboComponent implements OnInit {
-  @Input('editable') editable = true;
-  @Input('placeholder') placeholder = "Geek";
-  @Output() geekChosen = new EventEmitter<string>();
-  private clears = new Subject<string>();
-  control: FormControl = new FormControl();
-  filteredOptions: Observable<string[]>;
+export class GeekComboComponent {
+  private _selectedItem: string | undefined;
 
-  constructor(private http: HttpClient) { }
-
-  public ngOnInit() {
-    this.filteredOptions = this.control.valueChanges.pipe(
-      merge(this.clears.asObservable()),
-      startWith(''),
-      flatMap(val => this.filter(val))
-    );
+  get selectedItem(): string | undefined {
+    return this._selectedItem || "";
   }
 
-  private filter(val: string): Observable<string[]> {
+  @Input() placeholderText? = 'Enter search term';
+  @Output() selectedItemChanged = new EventEmitter<string>();
+
+  isListVisible = false;
+  focusedItemIndex: number | undefined;
+  inputs = new Subject<string>();
+  filteredItemStream: Observable<string[]> = this.inputs.pipe(
+    switchMap(s => this.lookupGeek(s))
+  );
+  // this is what shows in the list
+  filteredItems: string[] = [];
+
+  constructor(private http: HttpClient) {
+    this.filteredItemStream.subscribe({
+      next: (geeks: string[]) => {
+        this.updateFilteredItems(geeks);
+      }
+    });
+  }
+
+  selectionEntered(event: Event): void {
+    if (this.focusedItemIndex !== undefined) {
+      this._selectedItem = this.filteredItems[this.focusedItemIndex];
+      this.isListVisible = false;
+      this.selectedItemChanged.emit(this._selectedItem);
+    } else {
+      const searchTerm = (event.target as HTMLInputElement).value;
+      this.inputs.next(searchTerm);
+    }
+  }
+
+  reset() {
+    this._selectedItem = undefined;
+  }
+
+  inputChanged(event: Event): void {
+    const searchTerm = (event.target as HTMLInputElement).value;
+    if (!searchTerm) {
+      this.focusedItemIndex = undefined;
+      this._selectedItem = undefined;
+      this.isListVisible = false;
+    } else {
+      this.inputs.next(searchTerm);
+    }
+  }
+
+  navigateDownToListItem(event: Event): void {
+    event.stopPropagation();
+    if (!this.isListVisible) {
+      this.isListVisible = true;
+      if (this.focusedItemIndex === undefined && this.filteredItems.length > 0) {
+        this.focusedItemIndex = 0;
+      }
+      return;
+    }
+    if (!this.filteredItems.length) {
+      this.focusedItemIndex = undefined;
+      return;
+    }
+    if (this.focusedItemIndex === undefined) {
+      this.focusedItemIndex = 0;
+      return;
+    }
+    if (this.focusedItemIndex === this.filteredItems.length - 1) {
+      return;
+    }
+    this.focusedItemIndex++;
+  }
+
+  navigateUpToListItem(event: Event): void {
+    event.stopPropagation();
+    if (!this.isListVisible || this.focusedItemIndex === 0) {
+      return;
+    }
+    if (this.filteredItems.length && this.focusedItemIndex === undefined) {
+      this.focusedItemIndex = this.filteredItems.length - 1;
+      return;
+    }
+    if (this.focusedItemIndex) this.focusedItemIndex--;
+  }
+
+  select(item: string): void {
+    this.focusedItemIndex = this.filteredItems.indexOf(item);
+    this._selectedItem = item;
+    this.isListVisible = false;
+    this.selectedItemChanged.emit(this._selectedItem);
+  }
+
+  focusOn(index: number) {
+    this.focusedItemIndex = index;
+  }
+
+  private updateFilteredItems(opts: string[]) {
+    const focusedItem = (this.focusedItemIndex === undefined) ? undefined : this.filteredItems[this.focusedItemIndex];
+    this.filteredItems = opts;
+    if (focusedItem && this.filteredItems.includes(focusedItem)) {
+      this.focusedItemIndex = this.filteredItems.indexOf(focusedItem);
+    } else {
+      this.focusedItemIndex = undefined;
+    }
+    this.isListVisible = true;
+  }
+
+  private lookupGeek(val: string): Observable<string[]> {
     if (val === '') return of([]);
-    return this.http
-      .get('https://api.drfriendless.com/v1/findgeeks/' + val) as Observable<string[]>;
-  }
-
-  public emit(event) {
-    this.geekChosen.next(this.control.value);
-    this.control.setValue('');
-    this.clears.next('');
+    return this.http.get('https://api.drfriendless.com/eb/findgeeks/' + val) as Observable<string[]>;
   }
 }
+
+

@@ -1,0 +1,16 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./test-app",
+    "types": [],
+    "paths": {
+      "extstats-datatable": [
+        "./dist/table"
+      ]
+    }
+  },
+  "files": [
+    "projects/test-app/src/main.ts"
+  ]
+}

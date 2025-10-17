@@ -11,3 +11,4 @@ export * from './lib/plays-view-component';
 export * from './lib/graph-query-source.component';
 export * from './lib/loader/loader.component';
 export * from './lib/user-data.service';
+export * from './lib/geek-combo/geek-combo.component';
