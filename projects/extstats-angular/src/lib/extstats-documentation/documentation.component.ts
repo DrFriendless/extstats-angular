@@ -1,21 +1,27 @@
 import { Component, AfterViewInit, Input } from '@angular/core';
 import {DocumentationContent} from "./documentation";
-import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
+import {TabDirective, TabsetComponent} from "ngx-bootstrap/tabs";
 
 @Component({
   selector: 'extstats-documentation',
   templateUrl: './documentation.component.html',
+  imports: [
+    TabsetComponent,
+    TabDirective
+  ],
   styleUrls: ['./documentation.component.css']
 })
 export class DocumentationComponent implements AfterViewInit {
-  @Input() collapsed: boolean;
-  @Input() src: string;
-  content$: Observable<DocumentationContent>;
+  @Input() collapsed: boolean = false;
+  @Input() src!: string;
+  content: DocumentationContent[] = [];
 
   constructor(private http: HttpClient) { }
 
   ngAfterViewInit() {
-    this.content$ = this.http.get(this.src) as Observable<DocumentationContent>;
+    this.http.get(this.src).subscribe(c => {
+      this.content = c as DocumentationContent[];
+    });
   }
 }

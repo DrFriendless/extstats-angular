@@ -1,5 +1,7 @@
 <div class="input-full-width">
-  <geek-combo (geekChosen)="chips.addGeek($event)" *ngIf='editable'></geek-combo>
-  <br *ngIf='editable'>
+  @if (editable) {
+    <geek-combo (geekChosen)="chips.addGeek($event)"></geek-combo>
+    <br>
+  }
   <geek-chips #chips [editable]="editable"></geek-chips>
 </div>

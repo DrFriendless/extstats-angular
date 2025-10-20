@@ -6,7 +6,7 @@ import {ButtonGroupButton} from "./button-group-interfaces";
   templateUrl: './button-group.component.html'
 })
 export class ButtonGroupComponent {
-  public selected: string;
+  public selected: string | undefined;
   private buttons: ButtonGroupButton[] = [];
 
   public register(button: ButtonGroupButton) {
@@ -15,7 +15,7 @@ export class ButtonGroupComponent {
 
   public clicked(button: ButtonGroupButton) {
     if (button.getSelector() === this.selected) {
-      this.selected = null;
+      this.selected = undefined;
     } else {
       this.selected = button.getSelector();
       this.buttons.forEach(b => {

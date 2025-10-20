@@ -1,7 +1,10 @@
-<mat-form-field class="input-full-width geek-chips">
-  <mat-chip-list [selectable]="true">
-    <mat-chip [removable]="editable" (removed)="remove(geek)" *ngFor="let geek of geeks">
-      {{geek}}<mat-icon matChipRemove *ngIf='editable'>cancel</mat-icon>
-    </mat-chip>
-  </mat-chip-list>
-</mat-form-field>
+<div class="input-full-width geek-chips">
+  @for (geek of geeks; track geek) {
+    <span class="geek-chip">
+        {{geek}}
+      @if (editable) {
+        <span class="geek-chip-remove" (click)="remove(geek)">x</span>
+      }
+      </span>
+  }
+</div>

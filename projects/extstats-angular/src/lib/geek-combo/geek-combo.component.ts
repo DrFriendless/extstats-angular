@@ -18,8 +18,8 @@ export class GeekComboComponent {
     return this._selectedItem || "";
   }
 
-  @Input() placeholderText? = 'Enter search term';
-  @Output() selectedItemChanged = new EventEmitter<string>();
+  @Input() placeholder? = 'Enter search term';
+  @Output() geekChosen = new EventEmitter<string>();
 
   isListVisible = false;
   focusedItemIndex: number | undefined;
@@ -42,7 +42,7 @@ export class GeekComboComponent {
     if (this.focusedItemIndex !== undefined) {
       this._selectedItem = this.filteredItems[this.focusedItemIndex];
       this.isListVisible = false;
-      this.selectedItemChanged.emit(this._selectedItem);
+      this.geekChosen.emit(this._selectedItem);
     } else {
       const searchTerm = (event.target as HTMLInputElement).value;
       this.inputs.next(searchTerm);
@@ -103,7 +103,7 @@ export class GeekComboComponent {
     this.focusedItemIndex = this.filteredItems.indexOf(item);
     this._selectedItem = item;
     this.isListVisible = false;
-    this.selectedItemChanged.emit(this._selectedItem);
+    this.geekChosen.emit(this._selectedItem);
   }
 
   focusOn(index: number) {

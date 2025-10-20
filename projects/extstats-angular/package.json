@@ -1,12 +1,13 @@
 {
   "name": "extstats-angular",
-  "version": "7.1.0",
+  "version": "7.2.0",
   "scripts": {
     "pack": "npm pack ../../dist/extstats-angular"
   },
   "peerDependencies": {
     "@angular/common": "^20.3.0",
-    "@angular/core": "^20.3.0"
+    "@angular/core": "^20.3.0",
+    "ngx-bootstrap": "^20.0.2"
   },
   "dependencies": {
     "tslib": "^2.8.1"
