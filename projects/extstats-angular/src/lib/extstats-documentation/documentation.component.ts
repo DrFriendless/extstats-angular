@@ -1,5 +1,5 @@
 import { Component, AfterViewInit, Input } from '@angular/core';
-import {DocumentationContent} from "./documentation";
+import {DocumentationContent} from "./documentation-interfaces";
 import {HttpClient} from "@angular/common/http";
 import {TabDirective, TabsetComponent} from "ngx-bootstrap/tabs";
 
