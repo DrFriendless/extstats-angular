@@ -3,7 +3,6 @@
 
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import {Observable, Subject, switchMap} from "rxjs";
-import {HttpClient} from "@angular/common/http";
 import {ExtstatsApi} from "extstats-api";
 
 @Component({
