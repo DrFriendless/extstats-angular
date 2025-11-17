@@ -1,8 +1,9 @@
 import { AfterViewInit, Injectable, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { mergeMap, tap, share, map } from 'rxjs/operators';
-import { Observable, Subject, throwError } from 'rxjs';
+import { HttpHeaders } from '@angular/common/http';
+import { mergeMap, tap, share } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
 import {UserDataService} from './user-data.service';
+import {ExtstatsApi} from "extstats-api";
 
 @Injectable()
 export abstract class GraphQuerySourceComponent<T> implements AfterViewInit, OnInit {
@@ -11,13 +12,12 @@ export abstract class GraphQuerySourceComponent<T> implements AfterViewInit, OnI
   public data$: Observable<T>;
   public loading = false;
 
-  protected constructor(private http: HttpClient, private userDataService: UserDataService) {
+  protected constructor(private api: ExtstatsApi, private userDataService: UserDataService) {
     this.data$ = this.queries.asObservable()
       .pipe(
         tap(() => this.loading = true),
         mergeMap(() => this.doQuery()),
         tap(() => this.loading = false),
-        map(x => x['data']),
         share()
       );
   }
@@ -27,13 +27,10 @@ export abstract class GraphQuerySourceComponent<T> implements AfterViewInit, OnI
     this.geek = this.userDataService.getAGeek();
   }
 
-  private doQuery(): Observable<{ data: T }> {
-    if (!this.geek) return throwError(() => new Error('no geek'));
-    const options = {
-      headers: new HttpHeaders().set('x-api-key', this.getApiKey())
-    };
+  private async doQuery(): Promise<T> {
+    if (!this.geek) throw new Error('no geek');
     const query = '?query=' + encodeURIComponent(this.buildQuery(this.geek));
-    return this.http.get('https://api.drfriendless.com/v1/retrieve' + query, options) as Observable<{ data: T }>;
+    return await this.api.retrieve(query) as T;
   }
 
   public ngAfterViewInit() {

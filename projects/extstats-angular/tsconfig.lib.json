@@ -3,7 +3,7 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "outDir": "table",
+    "outDir": "extstats-angular",
     "declaration": true,
     "declarationMap": true,
     "inlineSources": true,

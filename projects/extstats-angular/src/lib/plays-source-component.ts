@@ -1,25 +1,24 @@
-import { PlaysQuery } from "extstats-core";
+import {MultiGeekPlays, PlaysQuery} from "extstats-core";
 import {AfterViewInit, Injectable, OnInit} from '@angular/core';
-import {Observable, Subject, throwError} from "rxjs";
-import { HttpClient, HttpHeaders} from "@angular/common/http";
-import { flatMap, tap, share } from "rxjs/operators";
-import { EMPTY } from "rxjs";
+import {from, Observable, Subject} from "rxjs";
+import { mergeMap, tap, share } from "rxjs/operators";
 import { UserDataService} from "./user-data.service";
+import {ExtstatsApi} from "extstats-api";
 
 @Injectable()
-export abstract class PlaysSourceComponent<T> implements AfterViewInit, OnInit {
+export abstract class PlaysSourceComponent implements AfterViewInit, OnInit {
   protected geek: string | undefined;
   private queries = new Subject<any>();
-  public data$: Observable<T>;
+  public data$: Observable<MultiGeekPlays>;
   public loading = false;
 
-  protected constructor(private http: HttpClient, private userDataService: UserDataService) {
+  protected constructor(private api: ExtstatsApi, private userDataService: UserDataService) {
     this.data$ = this.queries.asObservable()
       .pipe(
-        tap(junk => this.loading = true),
-        flatMap(junk => this.doQuery()),
+        tap(() => this.loading = true),
+        mergeMap(q => this.doQuery(q)),
         tap(data => console.log(data)),
-        tap(junk => this.loading = false),
+        tap(() => this.loading = false),
         share()
       );
   }
@@ -33,17 +32,13 @@ export abstract class PlaysSourceComponent<T> implements AfterViewInit, OnInit {
     this.refresh();
   }
 
-  private doQuery(): Observable<T> {
-    if (!this.geek) return throwError(() => new Error('no geek'));
-    const options = {
-      headers: new HttpHeaders().set("x-api-key", this.getApiKey())
-    };
-    const body = this.buildQuery(this.geek);
-    if (body) return this.http.post("https://api.drfriendless.com/v1/plays", body, options) as Observable<T>;
-    return throwError(() => new Error('no body in response'));
+  private doQuery(q: any): Observable<MultiGeekPlays> {
+    if (!this.geek) throw new Error('no geek');
+    const body = this.buildQuery(this.geek, q);
+    return from(this.api.plays(body));
   }
 
-  protected buildQuery(geek: string): PlaysQuery {
+  protected buildQuery(geek: string, q: any): PlaysQuery {
     return { geek };
   }
 

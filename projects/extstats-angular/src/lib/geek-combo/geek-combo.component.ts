@@ -2,8 +2,9 @@
 // and then massacred.
 
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import {Observable, of, Subject, switchMap} from "rxjs";
+import {Observable, Subject, switchMap} from "rxjs";
 import {HttpClient} from "@angular/common/http";
+import {ExtstatsApi} from "extstats-api";
 
 @Component({
   selector: 'geek-combo',
@@ -30,7 +31,7 @@ export class GeekComboComponent {
   // this is what shows in the list
   filteredItems: string[] = [];
 
-  constructor(private http: HttpClient) {
+  constructor(private api: ExtstatsApi) {
     this.filteredItemStream.subscribe({
       next: (geeks: string[]) => {
         this.updateFilteredItems(geeks);
@@ -121,9 +122,9 @@ export class GeekComboComponent {
     this.isListVisible = true;
   }
 
-  private lookupGeek(val: string): Observable<string[]> {
-    if (val === '') return of([]);
-    return this.http.get('https://api.drfriendless.com/eb/findgeeks/' + val) as Observable<string[]>;
+  private async lookupGeek(val: string): Promise<string[]> {
+    if (val === '') return [];
+    return await this.api.findGeeks(val);
   }
 }
 

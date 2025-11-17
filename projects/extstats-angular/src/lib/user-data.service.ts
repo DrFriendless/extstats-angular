@@ -19,6 +19,7 @@ export class UserDataService {
       const options = {
         headers: new HttpHeaders().set("Authorization", "Bearer " + jwt)
       };
+      // TODO
       this.http.get<UserData>("https://api.drfriendless.com/v1/authenticate", options).pipe(
         tap(obj => console.log(obj)),
         map((userData: UserData) => userData.config),
