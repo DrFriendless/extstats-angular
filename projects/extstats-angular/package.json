@@ -1,13 +1,13 @@
 {
   "name": "extstats-angular",
-  "version": "7.4.3",
+  "version": "7.6.0",
   "scripts": {
     "pack": "npm pack ../../dist/extstats-angular"
   },
   "peerDependencies": {
     "@angular/common": "^20.3.0",
     "@angular/core": "^20.3.0",
-    "extstats-api": "file:/home/john/projects/repo/extstats-api-1.0.6.tgz",
+    "extstats-api": "file:/home/john/projects/repo/extstats-api-1.0.14.tgz",
     "extstats-core": "file:/home/john/projects/repo/extstats-core-1.21.0.tgz",
     "ngx-bootstrap": "^20.0.2"
   },

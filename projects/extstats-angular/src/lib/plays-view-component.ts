@@ -1,7 +1,8 @@
 import {Observable, Subscription} from "rxjs";
-import {Input, OnDestroy, AfterViewInit, Injectable} from '@angular/core';
+import {Input, OnDestroy, AfterViewInit, Injectable, Directive} from '@angular/core';
 
 @Injectable()
+@Directive({})
 export abstract class PlaysViewComponent<D> implements OnDestroy, AfterViewInit {
   @Input('data') data$!: Observable<D>;
   private dataSubscription: Subscription | undefined;

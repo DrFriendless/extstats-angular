@@ -1,11 +1,11 @@
-import { AfterViewInit, Injectable, OnInit } from '@angular/core';
-import { HttpHeaders } from '@angular/common/http';
+import {AfterViewInit, Directive, Injectable, OnInit} from '@angular/core';
 import { mergeMap, tap, share } from 'rxjs/operators';
 import { Observable, Subject } from 'rxjs';
 import {UserDataService} from './user-data.service';
 import {ExtstatsApi} from "extstats-api";
 
 @Injectable()
+@Directive({})
 export abstract class GraphQuerySourceComponent<T> implements AfterViewInit, OnInit {
   protected geek: string | undefined;
   private queries = new Subject<any>();
@@ -29,8 +29,7 @@ export abstract class GraphQuerySourceComponent<T> implements AfterViewInit, OnI
 
   private async doQuery(): Promise<T> {
     if (!this.geek) throw new Error('no geek');
-    const query = '?query=' + encodeURIComponent(this.buildQuery(this.geek));
-    return await this.api.retrieve(query) as T;
+    return await this.api.retrieve(this.buildQuery(this.geek)) as T;
   }
 
   public ngAfterViewInit() {
@@ -42,6 +41,4 @@ export abstract class GraphQuerySourceComponent<T> implements AfterViewInit, OnI
   }
 
   protected abstract buildQuery(geek: string): string;
-
-  protected abstract getApiKey(): string;
 }

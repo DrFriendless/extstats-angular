@@ -1,11 +1,12 @@
 import {MultiGeekPlays, PlaysQuery} from "extstats-core";
-import {AfterViewInit, Injectable, OnInit} from '@angular/core';
+import {AfterViewInit, Directive, Injectable, OnInit} from '@angular/core';
 import {from, Observable, Subject} from "rxjs";
 import { mergeMap, tap, share } from "rxjs/operators";
 import { UserDataService} from "./user-data.service";
 import {ExtstatsApi} from "extstats-api";
 
 @Injectable()
+@Directive({})
 export abstract class PlaysSourceComponent implements AfterViewInit, OnInit {
   protected geek: string | undefined;
   private queries = new Subject<any>();

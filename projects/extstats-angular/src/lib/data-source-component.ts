@@ -1,12 +1,12 @@
 import {Collection, GeekGameQuery} from "extstats-core";
-import {AfterViewInit, Injectable, OnInit} from '@angular/core';
+import {AfterViewInit, Directive, Injectable, OnInit} from '@angular/core';
 import {Subject, Observable} from "rxjs";
-import {HttpClient} from "@angular/common/http";
 import {tap, share, mergeMap} from "rxjs/operators";
 import {UserDataService} from "./user-data.service";
 import {ExtstatsApi} from "extstats-api";
 
 @Injectable()
+@Directive({})
 export abstract class DataSourceComponent<T> implements AfterViewInit, OnInit {
   public geek: string | undefined;
   private selectors = new Subject<string>();
@@ -14,8 +14,7 @@ export abstract class DataSourceComponent<T> implements AfterViewInit, OnInit {
   protected selector: string;
   public loading = false;
 
-  protected constructor(private http: HttpClient, private userDataService: UserDataService, private api: ExtstatsApi,
-                        defaultSelector: string) {
+  protected constructor(private userDataService: UserDataService, private api: ExtstatsApi, defaultSelector: string) {
     this.selector = defaultSelector;
   }
 
