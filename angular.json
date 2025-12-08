@@ -22,7 +22,11 @@
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              "projects/test-app/src/favicon.ico"
+              {
+                "glob": "*",
+                "input": "projects/test-app/public/",
+                "output": "/"
+              }
             ],
             "styles": [
             ],

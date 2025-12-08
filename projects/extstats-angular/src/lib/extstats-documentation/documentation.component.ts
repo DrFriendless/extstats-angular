@@ -7,7 +7,6 @@ import {TabDirective, TabsetComponent} from 'ngx-bootstrap/tabs';
   selector: 'extstats-documentation',
   templateUrl: './documentation.component.html',
   imports: [
-    TabDirective,
     TabsetComponent,
     TabDirective
   ],
