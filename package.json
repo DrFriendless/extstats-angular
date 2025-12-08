@@ -13,18 +13,19 @@
     "@angular/core": "~20.3.6",
     "@angular/forms": "~20.3.6",
     "@angular/platform-browser": "~20.3.6",
-    "@angular/platform-browser-dynamic": "~20.3.6",
-    "extstats-core": "../repo/extstats-core-1.21.0.tgz",
+    "extstats-api": "file:/home/john/projects/repo/extstats-api-1.1.2.tgz",
+    "extstats-core": "file:/home/john/projects/repo/extstats-core-1.31.0.tgz",
     "ngx-bootstrap": "^20.0.2",
     "zone.js": "^0.15.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^20.3.6",
     "@angular/cli": "^20.3.6",
+    "@angular/compiler": "^20.3.6",
     "@angular/compiler-cli": "^20.3.6",
     "@types/lodash-es": "^4.17.12",
     "core-js": "^3.46.0",
-    "ng-packagr": "^20.3.0",
+    "ng-packagr": "^20.3.2",
     "typescript": "~5.9.3"
   },
   "repository": {

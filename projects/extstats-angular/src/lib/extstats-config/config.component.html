@@ -1,0 +1,30 @@
+<input autocomplete="off"
+       type="search"
+       role="combobox"
+       aria-haspopup="listbox"
+       [placeholder]="placeholder"
+       [value]="selectedItem"
+       [attr.aria-expanded]="isListVisible"
+       (keydown.enter)="selectionEntered($event)"
+       (keydown.arrowDown)="navigateDownToListItem($event)"
+       (keydown.arrowUp)="navigateUpToListItem($event)"
+       (keydown.escape)="reset()"
+       (input)="inputChanged($event)"
+       (blur)="isListVisible = false" />
+
+@if (isListVisible) {
+  <div class="list-container">
+    <ul role="listbox">
+      @for (item of filteredItems; track item) {
+        <li #listItemRef
+            role="option"
+            [attr.aria-selected]="$index === focusedItemIndex"
+            [class]="{ 'focused': $index === focusedItemIndex }"
+            (mouseenter)="focusOn($index)"
+            (mousedown)="select(item)">
+          {{item}}
+        </li>
+      }
+    </ul>
+  </div>
+}

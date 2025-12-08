@@ -18,3 +18,4 @@ export * from './lib/geek-combo/geek-combo.component';
 export * from './lib/geek-list-editor/geek-list-editor.component';
 export * from './lib/geek-chips/geek-chips.component';
 export * from './lib/cookie.service';
+export * from './lib/extstats-config/config.component';

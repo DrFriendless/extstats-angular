@@ -1,12 +1,13 @@
 import { Component, AfterViewInit, Input } from '@angular/core';
 import {DocumentationContent} from "./documentation-interfaces";
 import {HttpClient} from "@angular/common/http";
-import {TabDirective, TabsetComponent} from "ngx-bootstrap/tabs";
+import {TabDirective, TabsetComponent} from 'ngx-bootstrap/tabs';
 
 @Component({
   selector: 'extstats-documentation',
   templateUrl: './documentation.component.html',
   imports: [
+    TabDirective,
     TabsetComponent,
     TabDirective
   ],
