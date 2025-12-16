@@ -1,36 +1,18 @@
 import { Injectable } from '@angular/core';
-import {UserData, BuddySet, UserConfig} from 'extstats-core';
-import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
-import { tap, map } from "rxjs/operators";
+import {ExtstatsApi} from "extstats-api";
+import {HttpParams} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserDataService {
-  private userNames: string[] = [];
-  private buddyLists: BuddySet[] = [];
+  private data: any;
 
-  constructor(private http: HttpClient) { }
+  constructor(private api: ExtstatsApi) { }
 
-  public init() {
-    const jwt = localStorage.getItem("jwt");
-    if (jwt) {
-      console.log(jwt);
-      const options = {
-        headers: new HttpHeaders().set("Authorization", "Bearer " + jwt)
-      };
-      // TODO
-      this.http.get<UserData>("https://api.drfriendless.com/v1/authenticate", options).pipe(
-        tap(obj => console.log(obj)),
-        map((userData: UserData) => userData.config),
-        tap((config: UserConfig | undefined) => {
-          console.log(config);
-          if (config) {
-            this.userNames = config.usernames;
-            this.buddyLists = config.buddies;
-          }
-        })
-      );
+  public async init() {
+    if (!this.data) {
+      this.data = await this.api.getPersonalData();
     }
   }
 
@@ -46,16 +28,62 @@ export class UserDataService {
 
   public getAGeek(): string | undefined {
     let geek = this.getParamValueQueryString("geek");
-    // if (!geek) fromExtStatsStorage(storage => storage.geek);
+    if (!geek) {
+      let {curr, parent, f} = this.locatePath("user.username");
+      geek = curr;
+    }
     if (geek === null) geek = undefined;
     return geek;
   }
 
-  public getUserNames(): string[] {
-    return this.userNames;
+  public async set<T>(path: string, value: T): Promise<void> {
+    await this.init();
+    let {curr, parent, f} = this.locatePath(path);
+     parent[f!] = value;
   }
 
-  public getBuddies(): BuddySet[] {
-    return this.buddyLists;
+  public async setAndSave<T>(path: string, value: T): Promise<void> {
+    await this.init();
+    let {curr, parent, f} = this.locatePath(path);
+    if (curr && value && value === curr) return;
+    parent[f!] = value;
+    await this.api.updatePersonalData(this.data);
+  }
+
+  public async save<T>(): Promise<void> {
+    await this.init();
+    await this.api.updatePersonalData(this.data);
+  }
+
+  private locatePath(path: string) {
+    const fields = path.split(".", 100);
+    let curr = this.data;
+    let parent = undefined;
+    let f: string | undefined = undefined;
+    for (const field of fields) {
+      if (curr === undefined) {
+        curr = {};
+        parent[f!] = curr;
+      }
+      f = field;
+      if (field in curr) {
+        parent = curr;
+        curr = curr[field];
+      } else {
+        parent = curr;
+        curr = undefined;
+      }
+    }
+    return {curr, parent, f};
+  }
+
+  public async get<T>(path: string, defolt: T): Promise<T> {
+    await this.init();
+    let {curr, parent, f} = this.locatePath(path);
+    if (curr === undefined) {
+      return defolt;
+    } else {
+      return curr;
+    }
   }
 }
