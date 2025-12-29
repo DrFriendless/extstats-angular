@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {ExtstatsApi} from "extstats-api";
 import {HttpParams} from "@angular/common/http";
+import {CookieService} from "./cookie.service";
 
 @Injectable({
   providedIn: 'root'
@@ -8,13 +9,7 @@ import {HttpParams} from "@angular/common/http";
 export class UserDataService {
   private data: any;
 
-  constructor(private api: ExtstatsApi) { }
-
-  public async init() {
-    if (!this.data) {
-      this.data = await this.api.getPersonalData();
-    }
-  }
+  constructor(private api: ExtstatsApi, private cookieService: CookieService) { }
 
   private getParamValueQueryString(paramName: string) {
     const url = window.location.href;
@@ -26,24 +21,36 @@ export class UserDataService {
     return paramValue;
   }
 
-  public getAGeek(): string | undefined {
+  isLoggedIn(): boolean {
+    return !!this.cookieService.getCookie("extstatsid");
+  }
+
+  getLoggedInGeek(): string | undefined {
+    return this.cookieService.getCookie("extstatsid");
+  }
+
+  getAGeek(): string | undefined {
     let geek = this.getParamValueQueryString("geek");
-    if (!geek) {
-      let {curr, parent, f} = this.locatePath("user.username");
-      geek = curr;
-    }
+    if (geek) console.log(`From URL ${geek}`);
+    if (!geek) geek = this.getLoggedInGeek();
     if (geek === null) geek = undefined;
     return geek;
   }
 
   public async set<T>(path: string, value: T): Promise<void> {
-    await this.init();
+    if (!this.isLoggedIn()) return;
+    if (!this.data) {
+      this.data = await this.api.getPersonalData();
+    }
     let {curr, parent, f} = this.locatePath(path);
      parent[f!] = value;
   }
 
   public async setAndSave<T>(path: string, value: T): Promise<void> {
-    await this.init();
+    if (!this.isLoggedIn()) return;
+    if (!this.data) {
+      this.data = await this.api.getPersonalData();
+    }
     let {curr, parent, f} = this.locatePath(path);
     if (curr && value && value === curr) return;
     parent[f!] = value;
@@ -51,8 +58,8 @@ export class UserDataService {
   }
 
   public async save<T>(): Promise<void> {
-    await this.init();
-    await this.api.updatePersonalData(this.data);
+    if (!this.isLoggedIn()) return;
+    if (this.data) await this.api.updatePersonalData(this.data);
   }
 
   private locatePath(path: string) {
@@ -77,8 +84,11 @@ export class UserDataService {
     return {curr, parent, f};
   }
 
-  public async get<T>(path: string, defolt: T): Promise<T> {
-    await this.init();
+  public async get<T>(path: string, defolt: T): Promise<T | undefined> {
+    if (!this.isLoggedIn()) return undefined;
+    if (!this.data) {
+      this.data = await this.api.getPersonalData();
+    }
     let {curr, parent, f} = this.locatePath(path);
     if (curr === undefined) {
       return defolt;

@@ -13,7 +13,7 @@ export abstract class PlaysSourceComponent implements AfterViewInit, OnInit {
   public data$: Observable<MultiGeekPlays>;
   public loading = false;
 
-  protected constructor(private api: ExtstatsApi, private userDataService: UserDataService) {
+  protected constructor(protected api: ExtstatsApi, protected userDataService: UserDataService) {
     this.data$ = this.queries.asObservable()
       .pipe(
         tap(() => this.loading = true),
@@ -25,7 +25,6 @@ export abstract class PlaysSourceComponent implements AfterViewInit, OnInit {
   }
 
   public ngOnInit(): void {
-    this.userDataService.init();
     this.geek = this.userDataService.getAGeek();
   }
 
@@ -46,12 +45,4 @@ export abstract class PlaysSourceComponent implements AfterViewInit, OnInit {
   public refresh() {
     this.queries.next(null);
   }
-
-  public abstract getId(): string;
-
-  protected abstract getQueryResultFormat(): string;
-
-  protected abstract getQueryVariables(): { [key: string]: string };
-
-  protected abstract getApiKey(): string;
 }

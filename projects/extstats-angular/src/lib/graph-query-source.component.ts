@@ -1,35 +1,39 @@
-import {AfterViewInit, Directive, Injectable, OnInit} from '@angular/core';
+import {AfterViewInit, Directive, Injectable} from '@angular/core';
 import { mergeMap, tap, share } from 'rxjs/operators';
 import { Observable, Subject } from 'rxjs';
-import {UserDataService} from './user-data.service';
 import {ExtstatsApi} from "extstats-api";
 
 @Injectable()
 @Directive({})
-export abstract class GraphQuerySourceComponent<T> implements AfterViewInit, OnInit {
+export abstract class GraphQuerySourceComponent<T> implements AfterViewInit {
   protected geek: string | undefined;
   private queries = new Subject<any>();
   public data$: Observable<T>;
   public loading = false;
 
-  protected constructor(private api: ExtstatsApi, private userDataService: UserDataService) {
+  protected constructor(protected api: ExtstatsApi) {
     this.data$ = this.queries.asObservable()
       .pipe(
         tap(() => this.loading = true),
-        mergeMap(() => this.doQuery()),
+        mergeMap(() => this
+          .doQuery()
+          .catch(err => {
+            console.log(err);
+            this.loading = false;
+            return err;
+          })),
         tap(() => this.loading = false),
         share()
       );
   }
 
-  public ngOnInit(): void {
-    this.userDataService.init();
-    this.geek = this.userDataService.getAGeek();
-  }
-
-  private async doQuery(): Promise<T> {
-    if (!this.geek) throw new Error('no geek');
-    return await this.api.retrieve(this.buildQuery(this.geek)) as T;
+  private async doQuery(): Promise<T | undefined> {
+    const q = this.buildQuery();
+    if (q) {
+      return await this.api.retrieve(q) as T;
+    } else {
+      return undefined;
+    }
   }
 
   public ngAfterViewInit() {
@@ -40,5 +44,5 @@ export abstract class GraphQuerySourceComponent<T> implements AfterViewInit, OnI
     this.queries.next(null);
   }
 
-  protected abstract buildQuery(geek: string): string;
+  protected abstract buildQuery(): string;
 }

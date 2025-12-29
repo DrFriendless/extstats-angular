@@ -14,7 +14,7 @@ export abstract class DataSourceComponent<T> implements AfterViewInit, OnInit {
   protected selector: string;
   public loading = false;
 
-  protected constructor(private userDataService: UserDataService, private api: ExtstatsApi, defaultSelector: string) {
+  protected constructor(protected userDataService: UserDataService, protected api: ExtstatsApi, defaultSelector: string) {
     this.selector = defaultSelector;
   }
 
