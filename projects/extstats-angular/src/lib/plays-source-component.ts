@@ -2,7 +2,7 @@ import {MultiGeekPlays, PlaysQuery} from "extstats-core";
 import {AfterViewInit, Directive, Injectable, OnInit} from '@angular/core';
 import {from, Observable, Subject} from "rxjs";
 import { mergeMap, tap, share } from "rxjs/operators";
-import { UserDataService} from "./user-data.service";
+import { UserConfigService} from "./user-data.service";
 import {ExtstatsApi} from "extstats-api";
 
 @Injectable()
@@ -13,7 +13,7 @@ export abstract class PlaysSourceComponent implements AfterViewInit, OnInit {
   public data$: Observable<MultiGeekPlays>;
   public loading = false;
 
-  protected constructor(protected api: ExtstatsApi, protected userDataService: UserDataService) {
+  protected constructor(protected api: ExtstatsApi, protected userConfigService: UserConfigService) {
     this.data$ = this.queries.asObservable()
       .pipe(
         tap(() => this.loading = true),
@@ -25,7 +25,7 @@ export abstract class PlaysSourceComponent implements AfterViewInit, OnInit {
   }
 
   public ngOnInit(): void {
-    this.geek = this.userDataService.getAGeek();
+    this.geek = this.userConfigService.getAGeek();
   }
 
   public ngAfterViewInit() {

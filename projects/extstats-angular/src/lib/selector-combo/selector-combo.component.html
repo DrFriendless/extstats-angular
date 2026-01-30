@@ -1,0 +1,8 @@
+<div class="selector-combo">
+  <favouritable-combo [data]="DATA"
+                      [favouriteImage]="'url(/img/heart_red.svg)'"
+                      [unfavouriteImage]="'url(/img/heart_empty.svg)'"
+                      (currentItem)="onCurrentItemChange($event)"
+                      (favourites)="onFavouritesChange($event)">
+  </favouritable-combo>
+</div>

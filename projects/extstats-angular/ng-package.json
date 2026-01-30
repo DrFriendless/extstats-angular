@@ -3,5 +3,8 @@
   "dest": "../../dist/extstats-angular",
   "lib": {
     "entryFile": "index.ts"
-  }
+  },
+  "assets": [
+    "assets/**"
+  ]
 }
