@@ -34,6 +34,10 @@ export class SelectorComboComponent {
       id: "minus(owned(ME),rated(ME))"
     },
     {
+      text: "Played by me, or owned by me",
+      id: "any(played(ME),owned(ME))"
+    },
+    {
       text: "Owned by me but not played",
       id: "minus(owned(ME),played(ME))"
     },
