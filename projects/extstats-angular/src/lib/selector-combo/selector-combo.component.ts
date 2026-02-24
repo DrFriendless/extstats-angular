@@ -69,6 +69,10 @@ export class SelectorComboComponent {
       text: "Books owned by me",
       id: "all(owned(ME),books())"
     },
+    {
+      text: "Want...",
+      id: "any(wit(ME),wtb(ME),wtp(ME))"
+    }
   ];
 
   @Output() selectorChosen = new EventEmitter<string>();
