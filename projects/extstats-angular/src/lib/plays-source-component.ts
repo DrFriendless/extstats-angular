@@ -1,9 +1,8 @@
-import {MultiGeekPlays, PlaysQuery} from "extstats-core";
 import {AfterViewInit, Directive, Injectable, OnInit} from '@angular/core';
 import {from, Observable, Subject} from "rxjs";
 import { mergeMap, tap, share } from "rxjs/operators";
 import { UserConfigService} from "./user-data.service";
-import {ExtstatsApi} from "extstats-api";
+import {ExtstatsApi, MultiGeekPlays, PlaysQuery} from "extstats-api";
 
 @Injectable()
 @Directive({})

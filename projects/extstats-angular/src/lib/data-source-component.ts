@@ -1,9 +1,8 @@
-import {Collection, GeekGameQuery} from "extstats-core";
 import {AfterViewInit, Directive, Injectable, OnInit} from '@angular/core';
 import {Subject, Observable} from "rxjs";
 import {tap, share, mergeMap} from "rxjs/operators";
 import {UserConfigService} from "./user-data.service";
-import {ExtstatsApi} from "extstats-api";
+import {Collection, ExtstatsApi, GeekGameQuery} from "extstats-api";
 
 @Injectable()
 @Directive({})
