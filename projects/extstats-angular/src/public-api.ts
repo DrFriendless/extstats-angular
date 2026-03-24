@@ -20,3 +20,5 @@ export * from './lib/geek-chips/geek-chips.component';
 export * from './lib/cookie.service';
 export * from './lib/extstats-config/config.component';
 export * from './lib/selector-combo/selector-combo.component';
+export * from './lib/board-game-designer-link/board-game-designer-link.component';
+export * from './lib/board-game-link/board-game-link.component';

@@ -1,0 +1,20 @@
+.minitag-container {
+  --minitag-size: 10px;
+}
+.minitag {
+  width: var(--minitag-size);
+  height: var(--minitag-size);
+  visibility: hidden;
+  vertical-align: super;
+}
+.minitag-container {
+  display: inline;
+}
+.minitag-container:hover .minitag {
+  visibility: visible;
+}
+
+.minitag-box {
+  display: inline;
+  position: relative;
+}

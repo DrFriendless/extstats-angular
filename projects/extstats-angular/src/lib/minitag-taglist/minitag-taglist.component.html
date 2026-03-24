@@ -1,0 +1,7 @@
+<div class="minitag-taglist" (blur)="close.next(undefined)">
+  <span class="minitag-cell half-cell" (click)="clickTag('', false)" style="text-align: right">&Cross;</span>
+  @for (tag of allTags; track tag) {
+    @let hastag = hasTag(tag);
+    <span class="minitag-cell" [ngClass]="{ selected: hastag }" (click)="clickTag(tag, hastag)">{{tag}}</span>
+  }
+</div>

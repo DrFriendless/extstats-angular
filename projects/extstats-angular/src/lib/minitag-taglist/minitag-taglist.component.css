@@ -1,0 +1,24 @@
+.minitag-taglist {
+  display: flex;
+  border: 1px solid black;
+  flex-direction: column;
+  z-index: 1;
+  background: lemonchiffon;
+  color: black;
+  width: fit-content;
+  position: absolute;
+  left: 2px;
+  top: 0;
+}
+.minitag-cell {
+  padding: 2px 4px;
+}
+.minitag-cell.selected {
+  font-weight: bold;
+}
+.minitag-cell:hover {
+  background: wheat;
+}
+.half-cell {
+  line-height: 12px;
+}
