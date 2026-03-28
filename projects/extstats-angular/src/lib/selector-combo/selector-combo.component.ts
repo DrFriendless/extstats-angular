@@ -72,6 +72,10 @@ export class SelectorComboComponent {
     {
       text: "Want...",
       id: "any(wit(ME),wtb(ME),wtp(ME))"
+    },
+    {
+      text: "Tagged by me",
+      id: "tagged()"
     }
   ];
 
@@ -93,7 +97,6 @@ export class SelectorComboComponent {
   setDefault(selector: string) {
     for (const item of this.DATA) {
       if (item.id === selector) {
-        console.log(JSON.stringify(item));
         item.style = "default";
       } else {
         item.style = undefined;

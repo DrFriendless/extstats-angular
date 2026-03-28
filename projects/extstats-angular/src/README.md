@@ -8,8 +8,17 @@ It is intended that one day developers will be able to use this library and othe
 
 ## How to Build
 
-./package.sh
+./build.sh
+
+## How to Publish Locally 
+
+./deploy.sh
 
 ## How to Publish
 
 ./publish.sh
+
+## Release Notes
+
+9.2.0 - Remove PlaysSourceComponent and DataSourceComponent as GraphQuerySourceComponent does both of their jobs better.
+

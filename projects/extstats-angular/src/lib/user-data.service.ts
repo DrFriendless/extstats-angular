@@ -33,13 +33,12 @@ export class UserConfigService {
 
   getAGeek(): string | undefined {
     let geek = this.getParamValueQueryString("geek");
-    if (geek) console.log(`From URL ${geek}`);
     if (!geek) geek = this.getLoggedInGeek();
     if (geek === null) geek = undefined;
     return geek;
   }
 
-  private async checkDataIsLoaded(): Promise<void> {
+  public async checkDataIsLoaded(): Promise<void> {
     if (!this.data) await this.reloadData();
   }
 
@@ -82,6 +81,9 @@ export class UserConfigService {
     const ts4g = ts4gs[bggid.toString()] || [];
     if (ts4g.indexOf(tag) >= 0) {
       ts4gs[bggid.toString()] = ts4g.filter(t => t !== tag);
+      if (ts4gs[bggid.toString()].length === 0) {
+        delete ts4gs[bggid.toString()];
+      }
       await this.setAndSave("tagalogue.tagsbygame", ts4gs);
     }
     this.tagsForGames = ts4gs;
@@ -89,7 +91,6 @@ export class UserConfigService {
 
   private async reloadData() {
     this.data = new UserConfig(await this.api.getPersonalData());
-    console.log("data loaded");
     this.tagsForGames = this.getSync("tagalogue.tagsbygame", {}) || {};
   }
 
@@ -99,7 +100,6 @@ export class UserConfigService {
   }
 
   public getSync<T>(path: string, defolt: T): T | undefined {
-    console.log(`getSync ${path}`);
     if (!this.isLoggedIn()) return undefined;
     if (!this.data) return undefined;
     return this.data.get(path, defolt);
