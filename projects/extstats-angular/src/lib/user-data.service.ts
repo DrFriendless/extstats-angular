@@ -56,10 +56,6 @@ export class UserConfigService {
     }
   }
 
-  public getAllTags(): string[] {
-    return this.getSync("tagalogue.alltags", []) || [];
-  }
-
   public getTagsForGame(bggid: number | string): string[] {
     const tbg = this.tagsForGames as Record<string, string[]>;
     return tbg[bggid.toString()] || [];

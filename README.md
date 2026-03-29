@@ -10,7 +10,7 @@ Contents:
 * geek list editor - a combination of the geek combo and geek chips to edit a list of geeks
 * loader - the pulsating coloured buttons which indicate something is loading
 * the user data service - interface for Angular to tell whether a user is logged in and get stored data for them
-* the cookie service - interface for Angulat to look at cookies
+* the cookie service - interface for Angular to look at cookies
 * the user tag service - a facade over the user data service to provide facilities for the board game link
 * source / view infrastructure - allows a page component to load data from GraphQL and distribute it to the features on the page
 
@@ -20,3 +20,4 @@ Contents:
       - UserTagService
 9.2.1 - remove intrusive "no tags" from board game link
 9.2.3 - added tag groups
+9.3.0 - remove getAllTags from UserConfigService as it had become wrong
