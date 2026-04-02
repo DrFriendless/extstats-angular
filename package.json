@@ -13,7 +13,7 @@
     "@angular/core": "~20.3.6",
     "@angular/forms": "~20.3.6",
     "@angular/platform-browser": "~20.3.6",
-    "extstats-api": "file:/home/john/projects/repo/extstats-api-2.1.0.tgz",
+    "extstats-api": "file:/home/john/projects/repo/extstats-api-2.1.2.tgz",
     "extstats-core": "file:/home/john/projects/repo/extstats-core-2.0.4.tgz",
     "fav-combo": "file:/home/john/projects/repo/fav-combo-1.0.4.tgz",
     "ngx-bootstrap": "^20.0.2",
