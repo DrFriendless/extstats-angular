@@ -15,6 +15,7 @@ export * from './lib/user-data.service';
 export * from './lib/user-tag.service';
 export * from './lib/geek-combo/geek-combo.component';
 export * from './lib/designer-combo/designer-combo.component';
+export * from './lib/publisher-combo/publisher-combo.component';
 export * from './lib/geek-list-editor/geek-list-editor.component';
 export * from './lib/geek-chips/geek-chips.component';
 export * from './lib/cookie.service';

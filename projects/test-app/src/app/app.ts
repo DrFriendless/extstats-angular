@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
-import {GeekComboComponent, DesignerComboComponent, LoaderComponent, DocumentationComponent, ConfigComponent, GeekListEditorComponent} from "../../../extstats-angular";
+import {GeekComboComponent, DesignerComboComponent, PublisherComboComponent, LoaderComponent, DocumentationComponent,
+  ConfigComponent, GeekListEditorComponent} from "../../../extstats-angular";
 import {SelectorComboComponent} from "../../../extstats-angular";
-import {Designer} from "extstats-api";
+import {Designer, Publisher} from "extstats-api";
 
 @Component({
   selector: 'app-root',
-  imports: [GeekComboComponent, DesignerComboComponent, DocumentationComponent, GeekListEditorComponent, LoaderComponent, ConfigComponent, SelectorComboComponent],
+  imports: [GeekComboComponent, DesignerComboComponent, PublisherComboComponent, DocumentationComponent, GeekListEditorComponent,
+    LoaderComponent, ConfigComponent, SelectorComboComponent],
   templateUrl: './app.html',
   standalone: true,
   styleUrl: './app.scss'
@@ -19,6 +21,10 @@ export class App {
 
   designerSelected(event: Designer) {
     console.log(`DesignerCombo returns ${JSON.stringify(event)}`);
+  }
+
+  publisherSelected(event: Publisher) {
+    console.log(`PublisherCombo returns ${JSON.stringify(event)}`);
   }
 
   choose(event: string) {
