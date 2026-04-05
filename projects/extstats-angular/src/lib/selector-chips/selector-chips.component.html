@@ -1,0 +1,10 @@
+<div class="input-full-width selector-chips">
+  @for (selector of selectors; track selector) {
+    <span class="selector">
+        {{selector}}
+      @if (editable) {
+        <span class="selector-chip-remove" (click)="remove(selector)">x</span>
+      }
+      </span>
+  }
+</div>

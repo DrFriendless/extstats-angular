@@ -1,0 +1,25 @@
+.selector-chips {
+  width: 100%;
+}
+.selector-chip {
+  border: 1px solid black;
+  box-shadow: lightblue 2px 2px;
+  border-radius: 2px;
+  font-size: 16px;
+  line-height: 30px;
+  font-family: sans-serif;
+  margin-right: 6px;
+  padding: 2px 2px 2px 6px;
+}
+.selector-chip-remove {
+  font-size: 14px;
+  vertical-align: top;
+  padding-right: 4px;
+  padding-left: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  color: darkgray;
+}
+.selector-chip-remove:hover {
+  background-color: lightblue;
+}
