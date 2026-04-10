@@ -3,7 +3,10 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 @Component({
   selector: 'selector-chips',
   templateUrl: './selector-chips.component.html',
-  styleUrls: ['./selector-chips.component.css']
+  styleUrls: ['./selector-chips.component.css'],
+  host: {
+    style: "display: contents"
+  }
 })
 export class SelectorChipsComponent {
   @Input('editable') editable = true;
