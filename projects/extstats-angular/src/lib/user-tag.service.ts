@@ -52,7 +52,7 @@ export class UserTagService {
   }
 
   public getTagsForGame(bggid: number | string): string[] {
-    return this.userService.getTagsForGame(bggid);
+    return this.userService.getTagsForGame(bggid) || [];
   }
 
   public getTagGroups(): TagGroup[] {
