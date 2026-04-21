@@ -15,9 +15,10 @@
 }
 .minitag-cell.selected {
   font-weight: bold;
+  background: wheat;
 }
 .minitag-cell:hover {
-  background: wheat;
+  background: burlywood;
 }
 .half-cell {
   line-height: 12px;

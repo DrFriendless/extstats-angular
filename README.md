@@ -21,3 +21,5 @@ Contents:
 9.2.1 - remove intrusive "no tags" from board game link
 9.2.3 - added tag groups
 9.3.0 - remove getAllTags from UserConfigService as it had become wrong
+9.3.10 - add selector chips
+9.3.11 - highlight used tag in mini taglist as bolding doesn't work for emojis
