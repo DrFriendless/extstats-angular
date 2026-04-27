@@ -23,3 +23,4 @@ Contents:
 9.3.0 - remove getAllTags from UserConfigService as it had become wrong
 9.3.10 - add selector chips
 9.3.11 - highlight used tag in mini taglist as bolding doesn't work for emojis
+9.3.12 - add switch component

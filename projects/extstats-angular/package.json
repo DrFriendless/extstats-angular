@@ -1,6 +1,6 @@
 {
   "name": "extstats-angular",
-  "version": "9.3.11",
+  "version": "9.3.13",
   "scripts": {
     "pack": "npm pack ../../dist/extstats-angular"
   },
