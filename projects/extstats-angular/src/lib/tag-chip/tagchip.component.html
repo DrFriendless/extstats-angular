@@ -1,7 +1,7 @@
-<span class="tag" [ngClass]="{ 'present': present }" (click)="onClick()">
+<span class="tag" [ngClass]="{ 'present': present }" (click)="onClick($event)">
   {{value}}
   @if (removable) {
     &nbsp;
-    <a class="remove" (click)="onRemove()">&Cross;</a>
+    <a class="remove" (click)="onRemove($event)">&Cross;</a>
   }
 </span>

@@ -5,7 +5,7 @@
       &nbsp;
       <div class="minitag-box">
         @if (tagsShowing) {
-          <minitag-taglist tabindex="0" [allTags]="allTags" [tagsForGame]="tagsForGame || []" [bggid]="game.bggid"
+          <minitag-taglist tabindex="0" [allTags]="allTags" [game]="game"
                            (blur)="this.hideTags()" (close)="this.hideTags()">
           </minitag-taglist>
         } @else {

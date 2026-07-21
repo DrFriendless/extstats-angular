@@ -1,6 +1,12 @@
 import {Component, Input} from "@angular/core";
 import {MinitagTaglistComponent} from "../minitag-taglist/minitag-taglist.component";
 
+export interface TaggedGame {
+  name: string;
+  bggid: number;
+  tags: string[] | undefined;
+}
+
 @Component({
   selector: 'boardgame',
   templateUrl: './board-game-link.component.html',
@@ -10,9 +16,8 @@ import {MinitagTaglistComponent} from "../minitag-taglist/minitag-taglist.compon
   styleUrl: './board-game-link.component.css'
 })
 export class BoardGameLinkComponent {
-  @Input({ required: true }) game: { name: string, bggid: number } | undefined;
+  @Input({ required: true }) game: TaggedGame | undefined;
   @Input() allTags: string[] = [];
-  @Input() tagsForGame: string[] = [];
   tagsShowing = false;
 
   async showTags() {

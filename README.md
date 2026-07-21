@@ -25,3 +25,4 @@ Contents:
 9.3.11 - highlight used tag in mini taglist as bolding doesn't work for emojis
 9.3.12 - add switch component
 9.3.14 - add TagChip component
+9.3.15 - detect failure to load user data

@@ -17,13 +17,15 @@ export class TagChip {
   @Input({ required: false, alias: "present" }) present = true;
   @Input('removable') removable = false;
   @Output('remove') remove = new EventEmitter<string>();
-  @Output('click') click = new EventEmitter<string>();
+  @Output('add') click = new EventEmitter<string>();
 
-  onRemove() {
+  onRemove(event: MouseEvent) {
+    event.preventDefault();
     this.remove.next(this.value);
   }
 
-  onClick() {
+  onClick(event: MouseEvent) {
+    event.preventDefault();
     this.click.next(this.value);
   }
 }

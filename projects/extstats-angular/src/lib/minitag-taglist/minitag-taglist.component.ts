@@ -1,6 +1,12 @@
 import {AfterViewInit, Component, ElementRef, EventEmitter, Input, Output} from "@angular/core";
 import {NgClass} from "@angular/common";
-import {UserConfigService} from "../user-data.service";
+import {UserTagService} from "../user-tag.service";
+
+export interface TaggedGame {
+  name: string;
+  bggid: number;
+  tags: string[] | undefined;
+}
 
 @Component({
   selector: 'minitag-taglist',
@@ -12,26 +18,27 @@ import {UserConfigService} from "../user-data.service";
 })
 export class MinitagTaglistComponent implements AfterViewInit {
   @Input({ required: true}) allTags!: string[];
-  @Input({ required: true}) tagsForGame!: string[];
-  @Input({ required: true}) bggid!: number;
+  @Input({ required: true}) game!: TaggedGame;
   @Output() close = new EventEmitter<undefined>;
 
-  constructor(private el: ElementRef, private userService: UserConfigService){
+  constructor(private el: ElementRef, private tagService: UserTagService){
   }
 
   ngAfterViewInit(): void {
     this.el.nativeElement.focus();
   }
 
-  hasTag(tag: string) {
-    return (this.tagsForGame && this.tagsForGame.indexOf(tag) >= 0) || false;
+  hasTag(tag: string): boolean {
+    return (this.game.tags && this.game.tags.indexOf(tag) >= 0) || false;
   }
 
   async clickTag(tag: string, alreadyHasTag: boolean) {
-    if (alreadyHasTag) {
-      this.userService.removeTagAndSave(this.bggid, tag).then();
-    } else {
-      this.userService.addTagAndSave(this.bggid, tag).then();
+    if (tag) {
+      if (alreadyHasTag) {
+        this.game.tags = await this.tagService.removeTagAndSave(this.game.bggid, tag).then();
+      } else {
+        this.game.tags = await this.tagService.addTagAndSave(this.game.bggid, tag).then();
+      }
     }
     this.close.next(undefined);
   }

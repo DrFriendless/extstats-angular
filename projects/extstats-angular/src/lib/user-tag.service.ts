@@ -1,5 +1,6 @@
 import {Injectable} from "@angular/core";
 import {UserConfigService} from "./user-data.service";
+import {ExtstatsApi} from "extstats-api";
 
 export interface TagGroup {
   name: string;
@@ -15,7 +16,7 @@ export interface TagGroup {
 export class UserTagService {
   allTags: string[] = [];
 
-  constructor(private userService: UserConfigService) {
+  constructor(private userService: UserConfigService, private api: ExtstatsApi) {
     this.refresh();
   }
 
@@ -28,31 +29,19 @@ export class UserTagService {
           if (tags.indexOf(t) < 0) tags.push(t);
         }
       }
-      let groupsChanged = false;
-      const ts4gs: Record<string, string[]> = this.userService.getSync("tagalogue.tagsbygame", {}) || {};
-      for (const ts of Object.values(ts4gs)) {
-        for (const t of ts) {
-          if (tags.indexOf(t) < 0) {
-            tags.push(t);
-            if (tgs.length === 0) {
-              tgs.push({ name: "orphaned", tags: [] });
-            }
-            tgs[0].tags.push(t);
-            groupsChanged = true;
-          }
-        }
-      }
       tags.sort();
       this.allTags = tags;
-      if (groupsChanged) {
-        this.userService.setAndSave("tagalogue.taggroups", tgs)
-          .then(() => console.log("updated tag groups to collect orphans"));
-      }
     });
   }
 
-  public getTagsForGame(bggid: number | string): string[] {
-    return this.userService.getTagsForGame(bggid) || [];
+  public async addTagAndSave(bggid: number | string, tag: string): Promise<string[]> {
+    const bi = typeof bggid === typeof 1 ? (bggid as number) : parseInt(bggid.toString());
+    return await this.api.addTag(bi, tag);
+  }
+
+  public async removeTagAndSave(bggid: number | string, tag: string): Promise<string[]> {
+    const bi = typeof bggid === typeof 1 ? (bggid as number) : parseInt(bggid.toString());
+    return await this.api.removeTag(bi, tag);
   }
 
   public getTagGroups(): TagGroup[] {

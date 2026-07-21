@@ -9,7 +9,6 @@ import {UserConfig} from "extstats-core";
 })
 export class UserConfigService {
   private data: UserConfig | undefined;
-  private tagsForGames: Record<string, string[]> | undefined  = undefined;
 
   constructor(private api: ExtstatsApi, private cookieService: CookieService) { }
 
@@ -39,6 +38,9 @@ export class UserConfigService {
   }
 
   public async checkDataIsLoaded(): Promise<void> {
+    if (this.api.isBroken()) {
+      throw new Error("Connection to database is broken!");
+    }
     if (!this.data) await this.reloadData();
   }
 
@@ -56,38 +58,8 @@ export class UserConfigService {
     }
   }
 
-  public getTagsForGame(bggid: number | string): string[] {
-    const tbg = this.tagsForGames as Record<string, string[]>;
-    return tbg[bggid.toString()] || [];
-  }
-
-  public async addTagAndSave(bggid: number | string, tag: string): Promise<void> {
-    const ts4gs: Record<string, string[]> = await this.get("tagalogue.tagsbygame", {}) || {};
-    const ts4g = ts4gs[bggid.toString()] || [];
-    if (ts4g.indexOf(tag) < 0) {
-      ts4g.push(tag);
-      ts4gs[bggid.toString()] = ts4g;
-      await this.setAndSave("tagalogue.tagsbygame", ts4gs);
-    }
-    this.tagsForGames = ts4gs;
-  }
-
-  public async removeTagAndSave(bggid: number | string, tag: string): Promise<void> {
-    const ts4gs: Record<string, string[]> = await this.get("tagalogue.tagsbygame", {}) || {};
-    const ts4g = ts4gs[bggid.toString()] || [];
-    if (ts4g.indexOf(tag) >= 0) {
-      ts4gs[bggid.toString()] = ts4g.filter(t => t !== tag);
-      if (ts4gs[bggid.toString()].length === 0) {
-        delete ts4gs[bggid.toString()];
-      }
-      await this.setAndSave("tagalogue.tagsbygame", ts4gs);
-    }
-    this.tagsForGames = ts4gs;
-  }
-
   private async reloadData() {
     this.data = new UserConfig(await this.api.getPersonalData());
-    this.tagsForGames = this.getSync("tagalogue.tagsbygame", {}) || {};
   }
 
   public async save<T>(): Promise<void> {
